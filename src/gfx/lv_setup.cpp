@@ -21,6 +21,8 @@
 #include <lvgl.h>
 #include <gfx/lgfx.h>
 
+#include "lv_conf.h"
+
 #define LV_BUF_SIZE (SCREEN_WIDTH * SCREEN_HEIGHT)
 
 LGFX tft;
@@ -56,9 +58,9 @@ void read_cb(lv_indev_drv_t *indev_driver, lv_indev_data_t *data)
     bool touched = tft.getTouch(&touchX, &touchY);
     if (touched)
     {
+        data->state = LV_INDEV_STATE_PR;
         data->point.x = touchX;
         data->point.y = touchY;
-        data->state = LV_INDEV_STATE_PR;
     }
     else
     {
@@ -76,7 +78,9 @@ void lv_begin()
     tft.init();
     tft.setRotation(1);
 
-    // lv_log_register_print_cb(print_cb);
+#if LV_USE_LOG
+    lv_log_register_print_cb(print_cb);
+#endif
 
     lv_init();
 
