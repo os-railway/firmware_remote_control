@@ -2,21 +2,20 @@
 
 #include <lvgl.h>
 
-lv_obj_t *ui_SplashScreen;
-
 void ui_LaunchScreen_open()
 {
-    // Create a screen
-    ui_SplashScreen = lv_obj_create(NULL);
+    auto ui_SplashScreen = lv_obj_create(NULL);
     lv_obj_clear_flag(ui_SplashScreen, LV_OBJ_FLAG_SCROLLABLE);
     lv_obj_set_style_bg_color(ui_SplashScreen, lv_color_make(0x78, 0x94, 0xa7), 0);
 
-    // Create a label
-    lv_obj_t *label = lv_label_create(ui_SplashScreen);
-    lv_label_set_text(label, "Hello world!");
+    LV_IMG_DECLARE(os_railway_icon_lvgl);
+    auto *img = lv_img_create(ui_SplashScreen);
+    lv_img_set_src(img, &os_railway_icon_lvgl);
+    lv_obj_align(img, LV_ALIGN_CENTER, 0, 0);
 
-    // Align the label to the center
-    lv_obj_align(label, NULL, LV_ALIGN_CENTER, 0);
+    auto *label = lv_label_create(ui_SplashScreen);
+    lv_label_set_text(label, "OS-Railway");
+    lv_obj_align(label, LV_ALIGN_BOTTOM_MID, 0, -25);
 
     lv_disp_load_scr(ui_SplashScreen);
 }
