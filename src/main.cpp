@@ -19,10 +19,14 @@
 #include <Arduino.h>
 
 #include "gfx/lv_setup.h"
+#include "lv_i18n/lv_i18n.h"
 #include "ui/launch_screen.h"
 
 void setup()
 {
+  lv_i18n_init(lv_i18n_language_pack);
+  lv_i18n_set_locale("de-DE");
+
   lv_begin();
   ui_LaunchScreen_open();
 }

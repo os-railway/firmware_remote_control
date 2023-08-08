@@ -1,6 +1,7 @@
 #include "ui/launch_screen.h"
 
 #include <lvgl.h>
+#include "lv_i18n/lv_i18n.h"
 
 void ui_LaunchScreen_open()
 {
@@ -14,7 +15,7 @@ void ui_LaunchScreen_open()
     lv_obj_align(img, LV_ALIGN_CENTER, 0, 0);
 
     auto *label = lv_label_create(ui_SplashScreen);
-    lv_label_set_text(label, "OS-Railway");
+    lv_label_set_text(label, _("appName"));
     lv_obj_align(label, LV_ALIGN_BOTTOM_MID, 0, -25);
 
     lv_disp_load_scr(ui_SplashScreen);
