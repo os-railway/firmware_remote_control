@@ -18,4 +18,9 @@
 //----------------------------------------------------------------------------
 #pragma once
 
-void ui_LaunchScreen_open();
+class LaunchScreen
+{
+public:
+    LaunchScreen();
+    void show();
+};

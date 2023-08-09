@@ -28,7 +28,9 @@ void setup()
   lv_i18n_set_locale("de-DE");
 
   lv_begin();
-  ui_LaunchScreen_open();
+
+  LaunchScreen launchScreen;
+  launchScreen.show();
 }
 
 void loop()
