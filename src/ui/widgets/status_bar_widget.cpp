@@ -16,27 +16,23 @@
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //
 //----------------------------------------------------------------------------
-#include <Arduino.h>
+#include "status_bar_widget.h"
 
-#include <esp32-hal-log.h>
+#include <lvgl.h>
 
-#include "gfx/lv_setup.h"
-#include "lv_i18n/lv_i18n.h"
-#include "ui/screens/launch_screen.h"
+#include "time_widget.h"
 
-void setup()
+lv_obj_t *status_bar_widget;
+
+void status_bar_widget_init()
 {
-  esp_log_level_set("*", ESP_LOG_VERBOSE);
-
-  lv_i18n_init(lv_i18n_language_pack);
-  lv_i18n_set_locale("de-DE");
-
-  lv_begin();
-
-  LaunchScreen().init();
+    status_bar_widget = lv_obj_create(lv_layer_top());
+    time_widget_init(10, 10);
 }
 
-void loop()
+void status_bar_widget_dispose()
 {
-  lv_handler();
+    time_widget_dispose();
+    lv_obj_del(status_bar_widget);
+    status_bar_widget = NULL;
 }

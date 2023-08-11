@@ -16,27 +16,26 @@
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //
 //----------------------------------------------------------------------------
-#include <Arduino.h>
+#include "provisioning_screen.h"
 
-#include <esp32-hal-log.h>
-
-#include "gfx/lv_setup.h"
-#include "lv_i18n/lv_i18n.h"
-#include "ui/screens/launch_screen.h"
-
-void setup()
+ProvisioningScreen::ProvisioningScreen()
 {
-  esp_log_level_set("*", ESP_LOG_VERBOSE);
+    screen = lv_obj_create(NULL);
 
-  lv_i18n_init(lv_i18n_language_pack);
-  lv_i18n_set_locale("de-DE");
+    lv_color_t bg_color = lv_palette_lighten(LV_PALETTE_LIGHT_BLUE, 5);
+    lv_color_t fg_color = lv_palette_darken(LV_PALETTE_BLUE, 4);
 
-  lv_begin();
+    lv_obj_t *qr = lv_qrcode_create(screen, 150, fg_color, bg_color);
 
-  LaunchScreen().init();
+    const char *data = "{\"ver\":\"v2\",\"name\":\"OSRW_RC\",\"pop\":\"a1000318\",\"transport\":\"ble\"}";
+    lv_qrcode_update(qr, data, strlen(data));
+    lv_obj_center(qr);
+
+    lv_obj_set_style_border_color(qr, bg_color, 0);
+    lv_obj_set_style_border_width(qr, 5, 0);
 }
 
-void loop()
+void ProvisioningScreen::show()
 {
-  lv_handler();
+    lv_disp_load_scr(screen);
 }

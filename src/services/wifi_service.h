@@ -18,9 +18,4 @@
 //----------------------------------------------------------------------------
 #pragma once
 
-class LaunchScreen
-{
-public:
-    LaunchScreen();
-    void show();
-};
+void initWiFiTask(void *params);

@@ -16,27 +16,9 @@
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //
 //----------------------------------------------------------------------------
-#include <Arduino.h>
+#pragma once
 
-#include <esp32-hal-log.h>
+#include <lvgl.h>
 
-#include "gfx/lv_setup.h"
-#include "lv_i18n/lv_i18n.h"
-#include "ui/screens/launch_screen.h"
-
-void setup()
-{
-  esp_log_level_set("*", ESP_LOG_VERBOSE);
-
-  lv_i18n_init(lv_i18n_language_pack);
-  lv_i18n_set_locale("de-DE");
-
-  lv_begin();
-
-  LaunchScreen().init();
-}
-
-void loop()
-{
-  lv_handler();
-}
+void time_widget_init(lv_coord_t x, lv_coord_t y);
+void time_widget_dispose();

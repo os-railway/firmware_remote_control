@@ -16,27 +16,25 @@
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //
 //----------------------------------------------------------------------------
-#include <Arduino.h>
+#include "wifi_service.h"
 
-#include <esp32-hal-log.h>
+#include <WiFi.h>
+#include <ESPmDNS.h>
 
-#include "gfx/lv_setup.h"
-#include "lv_i18n/lv_i18n.h"
-#include "ui/screens/launch_screen.h"
-
-void setup()
+void initWiFiTask(void *params)
 {
-  esp_log_level_set("*", ESP_LOG_VERBOSE);
+    WiFi.mode(WIFI_STA);
 
-  lv_i18n_init(lv_i18n_language_pack);
-  lv_i18n_set_locale("de-DE");
+    auto start = millis();
+    while (WiFi.status() != WL_CONNECTED)
+    {
+        delay(500);
+        if (millis() - start > 10000)
+        {
+            Serial.println("Failed to connect to WiFi");
+            return;
+        }
+    }
 
-  lv_begin();
-
-  LaunchScreen().init();
-}
-
-void loop()
-{
-  lv_handler();
+    vTaskDelete(NULL);
 }

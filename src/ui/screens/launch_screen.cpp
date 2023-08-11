@@ -16,27 +16,44 @@
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //
 //----------------------------------------------------------------------------
-#include <Arduino.h>
+#include "launch_screen.h"
 
-#include <esp32-hal-log.h>
-
-#include "gfx/lv_setup.h"
 #include "lv_i18n/lv_i18n.h"
-#include "ui/screens/launch_screen.h"
+#include "search_screen.h"
 
-void setup()
+void LaunchScreen::init()
 {
-  esp_log_level_set("*", ESP_LOG_VERBOSE);
+    screen = lv_obj_create(NULL);
+    lv_obj_clear_flag(screen, LV_OBJ_FLAG_SCROLLABLE);
+    lv_obj_set_style_bg_color(screen, lv_color_make(0x78, 0x94, 0xa7), 0);
 
-  lv_i18n_init(lv_i18n_language_pack);
-  lv_i18n_set_locale("de-DE");
+    LV_IMG_DECLARE(os_railway_icon_lvgl);
+    auto *logo = lv_img_create(screen);
+    lv_img_set_src(logo, &os_railway_icon_lvgl);
+    lv_obj_align(logo, LV_ALIGN_CENTER, 0, 0);
 
-  lv_begin();
-
-  LaunchScreen().init();
+    auto *label = lv_label_create(screen);
+    lv_label_set_text(label, _("appName"));
+    lv_obj_align(label, LV_ALIGN_BOTTOM_MID, 0, -25);
+    {
+        lv_disp_load_scr(screen);
+        timer();
+    }
 }
 
-void loop()
+void LaunchScreen::dispose()
 {
-  lv_handler();
+    lv_obj_del(screen);
+    screen = nullptr;
+}
+
+void my_timer(lv_timer_t *timer)
+{
+    lv_timer_del(timer);
+    SearchScreen().show();
+}
+
+void LaunchScreen::timer()
+{
+    lv_timer_t *timer = lv_timer_create(my_timer, 2000, NULL);
 }

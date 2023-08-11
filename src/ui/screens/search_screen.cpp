@@ -16,27 +16,19 @@
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //
 //----------------------------------------------------------------------------
-#include <Arduino.h>
+#include "search_screen.h"
 
-#include <esp32-hal-log.h>
+#include "../widgets/status_bar_widget.h"
 
-#include "gfx/lv_setup.h"
-#include "lv_i18n/lv_i18n.h"
-#include "ui/screens/launch_screen.h"
-
-void setup()
+SearchScreen::SearchScreen()
 {
-  esp_log_level_set("*", ESP_LOG_VERBOSE);
-
-  lv_i18n_init(lv_i18n_language_pack);
-  lv_i18n_set_locale("de-DE");
-
-  lv_begin();
-
-  LaunchScreen().init();
+    screen = lv_obj_create(NULL);
+    lv_obj_clear_flag(screen, LV_OBJ_FLAG_SCROLLABLE);
+    lv_obj_set_style_bg_color(screen, lv_color_make(0x78, 0x94, 0xa7), 0);
 }
 
-void loop()
+void SearchScreen::show()
 {
-  lv_handler();
+    status_bar_widget_init();
+    lv_disp_load_scr(this->screen);
 }
