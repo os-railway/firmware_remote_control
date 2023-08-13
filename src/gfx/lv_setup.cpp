@@ -76,6 +76,8 @@ void print_cb(const char *buf)
 void lv_begin()
 {
     tft.init();
+    tft.initDMA();
+    tft.startWrite();
     tft.setRotation(1);
 
 #if LV_USE_LOG

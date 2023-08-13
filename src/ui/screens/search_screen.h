@@ -20,12 +20,4 @@
 
 #include <lvgl.h>
 
-class SearchScreen
-{
-private:
-    lv_obj_t *screen;
-
-public:
-    SearchScreen();
-    void show();
-};
+void search_screen_init();

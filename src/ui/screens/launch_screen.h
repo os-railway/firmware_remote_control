@@ -20,13 +20,4 @@
 
 #include <lvgl.h>
 
-class LaunchScreen
-{
-private:
-    lv_obj_t *screen;
-    void timer();
-
-public:
-    void init();
-    void dispose();
-};
+void launch_screen_show();

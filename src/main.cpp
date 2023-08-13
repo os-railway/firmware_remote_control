@@ -33,7 +33,11 @@ void setup()
 
   lv_begin();
 
-  LaunchScreen().init();
+  lv_disp_t *dispp = lv_disp_get_default();
+  lv_theme_t *theme = lv_theme_default_init(dispp, lv_palette_main(LV_PALETTE_AMBER), lv_palette_main(LV_PALETTE_RED), false, LV_FONT_DEFAULT);
+  lv_disp_set_theme(dispp, theme);
+
+  launch_screen_show();
 }
 
 void loop()

@@ -16,26 +16,4 @@
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //
 //----------------------------------------------------------------------------
-#include "provisioning_screen.h"
-
-ProvisioningScreen::ProvisioningScreen()
-{
-    screen = lv_obj_create(NULL);
-
-    lv_color_t bg_color = lv_palette_lighten(LV_PALETTE_LIGHT_BLUE, 5);
-    lv_color_t fg_color = lv_palette_darken(LV_PALETTE_BLUE, 4);
-
-    lv_obj_t *qr = lv_qrcode_create(screen, 150, fg_color, bg_color);
-
-    const char *data = "{\"ver\":\"v2\",\"name\":\"OSRW_RC\",\"pop\":\"a1000318\",\"transport\":\"ble\"}";
-    lv_qrcode_update(qr, data, strlen(data));
-    lv_obj_center(qr);
-
-    lv_obj_set_style_border_color(qr, bg_color, 0);
-    lv_obj_set_style_border_width(qr, 5, 0);
-}
-
-void ProvisioningScreen::show()
-{
-    lv_disp_load_scr(screen);
-}
+#pragma once

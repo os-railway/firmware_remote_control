@@ -20,19 +20,15 @@
 
 #include <lvgl.h>
 
-#include "time_widget.h"
-
 lv_obj_t *status_bar_widget;
 
 void status_bar_widget_init()
 {
     status_bar_widget = lv_obj_create(lv_layer_top());
-    time_widget_init(10, 10);
 }
 
 void status_bar_widget_dispose()
 {
-    time_widget_dispose();
     lv_obj_del(status_bar_widget);
     status_bar_widget = NULL;
 }

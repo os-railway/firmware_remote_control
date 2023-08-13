@@ -18,14 +18,28 @@
 //----------------------------------------------------------------------------
 #include "launch_screen.h"
 
+#include "theme.h"
 #include "lv_i18n/lv_i18n.h"
 #include "search_screen.h"
 
-void LaunchScreen::init()
+lv_obj_t *screen;
+
+void timer_xcb(lv_timer_t *timer)
+{
+    lv_timer_del(timer);
+    search_screen_init();
+}
+
+void start_timer()
+{
+    lv_timer_t *timer = lv_timer_create(timer_xcb, 2000, NULL);
+}
+
+void launch_screen_show()
 {
     screen = lv_obj_create(NULL);
     lv_obj_clear_flag(screen, LV_OBJ_FLAG_SCROLLABLE);
-    lv_obj_set_style_bg_color(screen, lv_color_make(0x78, 0x94, 0xa7), 0);
+    lv_obj_set_style_bg_color(screen, backgroundColor, 0);
 
     LV_IMG_DECLARE(os_railway_icon_lvgl);
     auto *logo = lv_img_create(screen);
@@ -35,25 +49,7 @@ void LaunchScreen::init()
     auto *label = lv_label_create(screen);
     lv_label_set_text(label, _("appName"));
     lv_obj_align(label, LV_ALIGN_BOTTOM_MID, 0, -25);
-    {
-        lv_disp_load_scr(screen);
-        timer();
-    }
-}
+    lv_disp_load_scr(screen);
 
-void LaunchScreen::dispose()
-{
-    lv_obj_del(screen);
-    screen = nullptr;
-}
-
-void my_timer(lv_timer_t *timer)
-{
-    lv_timer_del(timer);
-    SearchScreen().show();
-}
-
-void LaunchScreen::timer()
-{
-    lv_timer_t *timer = lv_timer_create(my_timer, 2000, NULL);
+    start_timer();
 }
