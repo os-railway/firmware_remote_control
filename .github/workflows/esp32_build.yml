@@ -22,3 +22,10 @@ jobs:
 
       - name: Build bare metal
         run: platformio run
+
+      - name: Archive production artifacts
+        uses: actions/upload-artifact@v3
+        with:
+          name: dist-firmware
+          path: |
+            .pio/build/**/*.bin
