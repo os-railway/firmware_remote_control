@@ -1,4 +1,4 @@
-name: ESP32 Build
+name: Remote Control Build
 
 on:
   push:
@@ -21,4 +21,4 @@ jobs:
           platformio update
 
       - name: Build bare metal
-        run: platformio run 
+        run: platformio run
