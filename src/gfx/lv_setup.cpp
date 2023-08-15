@@ -70,7 +70,7 @@ void read_cb(lv_indev_drv_t *indev_driver, lv_indev_data_t *data)
 
 void print_cb(const char *buf)
 {
-    log_d("%s", buf);
+    ESP_LOGD("lv_log", "%s", buf);
 }
 
 void lv_begin()
@@ -80,7 +80,7 @@ void lv_begin()
     tft.startWrite();
     tft.setRotation(1);
 
-#if LV_USE_LOG
+#if LV_LOG_PRINTF
     lv_log_register_print_cb(print_cb);
 #endif
 
