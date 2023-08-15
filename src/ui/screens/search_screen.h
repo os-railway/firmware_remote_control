@@ -20,4 +20,7 @@
 
 #include <lvgl.h>
 
-void search_screen_init();
+namespace SearchScreen
+{
+    void show();
+}

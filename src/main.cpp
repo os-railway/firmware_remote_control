@@ -24,20 +24,26 @@
 #include "lv_i18n/lv_i18n.h"
 #include "ui/screens/launch_screen.h"
 
+void displayRAM()
+{
+  ESP_LOGI("ram", "Total heap: %d", ESP.getHeapSize());
+  ESP_LOGI("ram", "Free heap: %d", ESP.getFreeHeap());
+  ESP_LOGI("ram", "Total PSRAM: %d", ESP.getPsramSize());
+  ESP_LOGI("ram", "Free PSRAM: %d", ESP.getFreePsram());
+}
+
 void setup()
 {
-  esp_log_level_set("*", ESP_LOG_VERBOSE);
-
   lv_i18n_init(lv_i18n_language_pack);
   lv_i18n_set_locale("de-DE");
 
   lv_begin();
 
-  lv_disp_t *dispp = lv_disp_get_default();
-  lv_theme_t *theme = lv_theme_default_init(dispp, lv_palette_main(LV_PALETTE_AMBER), lv_palette_main(LV_PALETTE_RED), false, LV_FONT_DEFAULT);
-  lv_disp_set_theme(dispp, theme);
+  lv_disp_t *display = lv_disp_get_default();
+  lv_theme_t *theme = lv_theme_default_init(display, lv_palette_main(LV_PALETTE_AMBER), lv_palette_main(LV_PALETTE_RED), LV_THEME_DEFAULT_DARK, LV_FONT_DEFAULT);
+  lv_disp_set_theme(display, theme);
 
-  launch_screen_show();
+  LaunchScreen::show();
 }
 
 void loop()

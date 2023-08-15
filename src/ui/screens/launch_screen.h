@@ -20,4 +20,7 @@
 
 #include <lvgl.h>
 
-void launch_screen_show();
+namespace LaunchScreen
+{
+    void show();
+}

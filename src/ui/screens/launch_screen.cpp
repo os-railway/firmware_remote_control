@@ -22,34 +22,38 @@
 #include "lv_i18n/lv_i18n.h"
 #include "search_screen.h"
 
-lv_obj_t *screen;
+LV_IMG_DECLARE(os_railway_icon_lvgl);
 
-void timer_xcb(lv_timer_t *timer)
+namespace LaunchScreen
 {
-    lv_timer_del(timer);
-    search_screen_init();
-}
+    lv_obj_t *screen;
 
-void start_timer()
-{
-    lv_timer_t *timer = lv_timer_create(timer_xcb, 2000, NULL);
-}
+    void timer_xcb(lv_timer_t *timer)
+    {
+        lv_timer_del(timer);
+        SearchScreen::show();
+    }
 
-void launch_screen_show()
-{
-    screen = lv_obj_create(NULL);
-    lv_obj_clear_flag(screen, LV_OBJ_FLAG_SCROLLABLE);
-    lv_obj_set_style_bg_color(screen, backgroundColor, 0);
+    void start_timer()
+    {
+        lv_timer_t *timer = lv_timer_create(timer_xcb, 2000, NULL);
+    }
 
-    LV_IMG_DECLARE(os_railway_icon_lvgl);
-    auto *logo = lv_img_create(screen);
-    lv_img_set_src(logo, &os_railway_icon_lvgl);
-    lv_obj_align(logo, LV_ALIGN_CENTER, 0, 0);
+    void show()
+    {
+        screen = lv_obj_create(NULL);
+        lv_obj_clear_flag(screen, LV_OBJ_FLAG_SCROLLABLE);
+        lv_obj_set_style_bg_color(screen, backgroundColor, 0);
 
-    auto *label = lv_label_create(screen);
-    lv_label_set_text(label, _("appName"));
-    lv_obj_align(label, LV_ALIGN_BOTTOM_MID, 0, -25);
-    lv_disp_load_scr(screen);
+        auto *logo = lv_img_create(screen);
+        lv_img_set_src(logo, &os_railway_icon_lvgl);
+        lv_obj_align(logo, LV_ALIGN_CENTER, 0, 0);
 
-    start_timer();
+        auto *label = lv_label_create(screen);
+        lv_label_set_text(label, _("appName"));
+        lv_obj_align(label, LV_ALIGN_BOTTOM_MID, 0, -25);
+        lv_disp_load_scr(screen);
+
+        start_timer();
+    }
 }
