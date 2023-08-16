@@ -16,10 +16,4 @@
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //
 //----------------------------------------------------------------------------
-#pragma once
-
-void lv_begin();
-void lv_handler();
-
-void check_display_off();
-void set_screen_timer(unsigned long time);
+#include "ble_service.h"

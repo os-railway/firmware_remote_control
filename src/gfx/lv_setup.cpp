@@ -27,6 +27,15 @@
 
 LGFX tft;
 
+struct Timer
+{
+    unsigned long time;
+    long duration = 5000;
+    bool active;
+};
+
+Timer screenTimer;
+
 void lv_handler()
 {
     static uint32_t previousUpdate = 0;
@@ -37,6 +46,22 @@ void lv_handler()
         previousUpdate = millis();
         interval = lv_timer_handler(); // Update the UI
     }
+}
+
+void check_display_off()
+{
+    if (screenTimer.active && millis() - screenTimer.time > screenTimer.duration)
+    {
+        tft.setBrightness(0);
+        screenTimer.active = false;
+    }
+}
+
+void set_screen_timer(unsigned long time)
+{
+    tft.setBrightness(255);
+    screenTimer.time = time;
+    screenTimer.active = true;
 }
 
 void flush_cb(lv_disp_drv_t *disp, const lv_area_t *area, lv_color_t *color_p)
@@ -52,7 +77,7 @@ void flush_cb(lv_disp_drv_t *disp, const lv_area_t *area, lv_color_t *color_p)
     lv_disp_flush_ready(disp);
 }
 
-void read_cb(lv_indev_drv_t *indev_driver, lv_indev_data_t *data)
+void touch_cb(lv_indev_drv_t *indev_driver, lv_indev_data_t *data)
 {
     uint16_t touchX, touchY;
     bool touched = tft.getTouch(&touchX, &touchY);
@@ -61,6 +86,7 @@ void read_cb(lv_indev_drv_t *indev_driver, lv_indev_data_t *data)
         data->state = LV_INDEV_STATE_PR;
         data->point.x = touchX;
         data->point.y = touchY;
+        set_screen_timer(millis());
     }
     else
     {
@@ -103,6 +129,6 @@ void lv_begin()
     static lv_indev_drv_t indev_drv;
     lv_indev_drv_init(&indev_drv);
     indev_drv.type = LV_INDEV_TYPE_POINTER;
-    indev_drv.read_cb = read_cb;
+    indev_drv.read_cb = touch_cb;
     lv_indev_drv_register(&indev_drv);
 }

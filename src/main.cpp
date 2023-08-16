@@ -44,9 +44,13 @@ void setup()
   lv_disp_set_theme(display, theme);
 
   LaunchScreen::show();
+
+  set_screen_timer(millis());
 }
 
 void loop()
 {
   lv_handler();
+
+  check_display_off();
 }

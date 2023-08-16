@@ -17,9 +17,3 @@
 //
 //----------------------------------------------------------------------------
 #pragma once
-
-void lv_begin();
-void lv_handler();
-
-void check_display_off();
-void set_screen_timer(unsigned long time);
