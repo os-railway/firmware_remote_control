@@ -16,7 +16,7 @@
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //
 //----------------------------------------------------------------------------
-#include "boards/lgfx.h"
+#include "gfx/lgfx.h"
 
 LGFX::LGFX()
 {
@@ -47,8 +47,8 @@ LGFX::LGFX()
         cfg.pin_cs = -1;
         cfg.pin_rst = 4;
         cfg.pin_busy = -1;
-        cfg.panel_width = 480;
-        cfg.panel_height = 320;
+        cfg.panel_width = SCREEN_HEIGHT;
+        cfg.panel_height = SCREEN_WIDTH;
         cfg.offset_x = 0;
         cfg.offset_y = 0;
         cfg.offset_rotation = 0;
@@ -59,8 +59,8 @@ LGFX::LGFX()
         cfg.rgb_order = false;
         cfg.dlen_16bit = false;
         cfg.bus_shared = true;
-        cfg.memory_width = 480;
-        cfg.memory_height = 320;
+        cfg.memory_width = SCREEN_HEIGHT;
+        cfg.memory_height = SCREEN_WIDTH;
 
         _panel_instance.config(cfg);
     }

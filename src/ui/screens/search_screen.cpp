@@ -85,9 +85,9 @@ namespace SearchScreen
         lv_obj_clear_flag(search_screen, LV_OBJ_FLAG_SCROLLABLE);
 
         search_data_table = lv_table_create(search_screen);
-        lv_obj_set_size(search_data_table, lv_pct(100), lv_pct(100));
+        lv_obj_set_size(search_data_table, SCREEN_WIDTH, SCREEN_HEIGHT);
 
-        lv_table_set_col_width(search_data_table, 0, lv_pct(100) - 3);
+        lv_table_set_col_width(search_data_table, 0, SCREEN_WIDTH - 3);
         lv_table_set_row_cnt(search_data_table, ITEM_CNT); /*Not required but avoids a lot of memory reallocation lv_table_set_set_value*/
         lv_table_set_col_cnt(search_data_table, 1);
 

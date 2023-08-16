@@ -22,7 +22,7 @@
 #include "lv_i18n/lv_i18n.h"
 #include "search_screen.h"
 
-LV_IMG_DECLARE(os_railway_icon);
+LV_IMG_DECLARE(os_railway_icon_lvgl);
 
 namespace LaunchScreen
 {
@@ -46,7 +46,7 @@ namespace LaunchScreen
         lv_obj_set_style_bg_color(screen, backgroundColor, 0);
 
         auto *logo = lv_img_create(screen);
-        lv_img_set_src(logo, &os_railway_icon);
+        lv_img_set_src(logo, &os_railway_icon_lvgl);
         lv_obj_align(logo, LV_ALIGN_CENTER, 0, 0);
 
         auto *label = lv_label_create(screen);
