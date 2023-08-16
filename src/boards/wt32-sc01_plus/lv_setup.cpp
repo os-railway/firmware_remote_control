@@ -16,14 +16,14 @@
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //
 //----------------------------------------------------------------------------
-#include "gfx/lv_setup.h"
+#include "boards/lv_setup.h"
 
 #include <lvgl.h>
-#include <gfx/lgfx.h>
 
+#include "boards/lgfx.h"
 #include "lv_conf.h"
 
-#define LV_BUF_SIZE (SCREEN_WIDTH * SCREEN_HEIGHT)
+#define LV_BUF_SIZE (480 * 320)
 
 LGFX tft;
 
@@ -94,8 +94,8 @@ void lv_begin()
 
     static lv_disp_drv_t disp_drv;
     lv_disp_drv_init(&disp_drv);
-    disp_drv.hor_res = SCREEN_WIDTH;
-    disp_drv.ver_res = SCREEN_HEIGHT;
+    disp_drv.hor_res = 480;
+    disp_drv.ver_res = 320;
     disp_drv.flush_cb = flush_cb;
     disp_drv.draw_buf = &draw_buf;
     lv_disp_drv_register(&disp_drv);

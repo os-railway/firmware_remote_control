@@ -20,7 +20,7 @@
 
 #include <esp32-hal-log.h>
 
-#include "gfx/lv_setup.h"
+#include "boards/lv_setup.h"
 #include "lv_i18n/lv_i18n.h"
 #include "ui/screens/launch_screen.h"
 
