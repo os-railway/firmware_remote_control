@@ -1,6 +1,6 @@
 //----------------------------------------------------------------------------
 // OS-Railway - Remote Control
-// Copyright (C) 2023 Peter Siegmund (https://mars3142.dev)
+// Copyright (C) 2023-2024 Peter Siegmund (https://mars3142.dev)
 //
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU Affero General Public License as published by
@@ -52,5 +52,5 @@ void loop()
 {
   lv_handler();
 
-  check_display_off();
+  // check_display_off();
 }
